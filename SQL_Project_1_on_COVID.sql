@@ -1,3 +1,4 @@
+-- Data Exploration on COVID 19 records--
 
 
 Select * from Project_Protfolio..[Covid-deaths]
@@ -7,6 +8,8 @@ order by 3,4
 --Select * from Project_Protfolio..covidvaccinations
 --where continent is not null
 --order by 3,4
+
+-- Select Data that are going to start with--
 
 Select location,date,total_cases,new_cases,total_deaths,population
 from Project_Protfolio..[Covid-deaths] order by 1,2
@@ -62,7 +65,7 @@ where continent is not null
 Group by date
 order by 1,2
 
---Total Cases--
+--Total no of Cases golbaly--
 
 Select sum(new_cases) AS total_cases ,sum(cast(new_deaths AS int)) AS total_deaths, sum(cast(new_deaths AS int))/sum(new_cases)*100 AS death_percentage
 from Project_Protfolio..[Covid-deaths]
