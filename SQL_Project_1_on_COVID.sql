@@ -9,20 +9,21 @@ order by 3,4
 --where continent is not null
 --order by 3,4
 
--- Select Data that are going to start with--
+-- Select Data that are going to be started with--
 
 Select location,date,total_cases,new_cases,total_deaths,population
 from Project_Protfolio..[Covid-deaths] order by 1,2
 
 --Total Cases vs Total deaths--
+--Shows chance of dying if you contract covid in your country--
 
 Select location,date,total_cases,total_deaths,round((total_deaths/total_cases)*100,2) AS death_Percentage
 from Project_Protfolio..[Covid-deaths]
-where location like '%ndia' and continent is not null
+where location like '%ndia' and continent is not null --country name can be vary
 order by 1,2
 
 --Total Cases vs Population--
---what population infected by covid in your country--
+--shows percentage of population infected by covid in your country--
 
 Select location,date,population,total_cases,(total_cases/population)*100 AS population_Percentage
 from Project_Protfolio..[Covid-deaths]
@@ -75,6 +76,7 @@ where continent is not null
 order by 1,2
 
 --Total Population VS Vaccination--
+--shows population percentage that has recieved at least one dose of vaccine--
 
 Select dea.continent,dea.location,dea.date,dea.population,vac.new_vaccinations 
 ,sum(cast(vac.new_vaccinations AS int )) over (partition by dea.location order by dea.location ,dea.date)
@@ -87,7 +89,7 @@ where dea.continent is not null
 order by 2,3
 
 
---Temp table--
+--Temp table for calculation purpose in previous query--
 
 DROP Table if exists #PercentagePopulationVaccinated
 Create Table #PercentagePopulationVaccinated
